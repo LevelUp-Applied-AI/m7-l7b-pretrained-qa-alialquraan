@@ -11,6 +11,7 @@ import string
 
 import pandas as pd
 
+from transformers import pipeline
 
 # -- Helpers (provided — do NOT modify) --------------------------------------
 
@@ -56,13 +57,24 @@ def normalize_answer(s: str) -> str:
     """SQuAD-style normalization (see drill / reading)."""
     # TODO: apply the four-step SQuAD normalization (lowercase, strip articles, strip punctuation, collapse whitespace);
     #       remember the article strip needs word-boundary regex
-    raise NotImplementedError("normalize_answer not implemented")
+    if s is None:
+        return ""
+
+    s = s.lower()
+
+    s = "".join(ch for ch in s if ch not in string.punctuation)
+
+    s = re.sub(r"\b(a|an|the)\b", " ", s)
+
+    s = " ".join(s.split())
+
+    return s
 
 
 def exact_match(pred: str, gold: str) -> int:
     """Return 1 if normalized prediction equals normalized gold."""
     # TODO: compare normalized values, return int
-    raise NotImplementedError("exact_match not implemented")
+    return int(normalize_answer(pred) == normalize_answer(gold))
 
 
 def token_f1(pred: str, gold: str) -> float:
@@ -75,7 +87,35 @@ def token_f1(pred: str, gold: str) -> float:
     Returns float in [0.0, 1.0]; never NaN.
     """
     # TODO: normalize, split, handle empty, compute multiset overlap, return F1
-    raise NotImplementedError("token_f1 not implemented")
+    pred_norm = normalize_answer(pred)
+    gold_norm = normalize_answer(gold)
+
+    if pred_norm == "" and gold_norm == "":
+        return 1.0
+    if pred_norm == "" or gold_norm == "":
+        return 0.0
+
+    pred_tokens = pred_norm.split()
+    gold_tokens = gold_norm.split()
+
+    common = {}
+
+    for t in pred_tokens:
+        common[t] = common.get(t, 0) + 1
+
+    overlap = 0
+    for t in gold_tokens:
+        if common.get(t, 0) > 0:
+            overlap += 1
+            common[t] -= 1
+
+    precision = overlap / len(pred_tokens)
+    recall = overlap / len(gold_tokens)
+
+    if precision + recall == 0:
+        return 0.0
+
+    return 2 * precision * recall / (precision + recall)
 
 
 # -- Task 2: Build the QA pipeline -------------------------------------------
@@ -83,7 +123,7 @@ def token_f1(pred: str, gold: str) -> float:
 def build_qa_pipeline(model_name: str):
     """Construct a Hugging Face question-answering pipeline."""
     # TODO: build a question-answering pipeline using the given model name (same as the drill)
-    raise NotImplementedError("build_qa_pipeline not implemented")
+    return pipeline("question-answering", model=model_name)
 
 
 # -- Task 3: Predict one answer ---------------------------------------------
@@ -95,7 +135,8 @@ def predict_one(qa, question: str, context: str) -> str:
     Returns the answer STRING only (not the full pipeline output dict).
     """
     # TODO: invoke the pipeline on the (question, context) pair and return only the predicted answer string
-    raise NotImplementedError("predict_one not implemented")
+    result = qa(question=question, context=context)
+    return result["answer"]
 
 
 # -- Task 4: Evaluate over the dataset ---------------------------------------
@@ -118,7 +159,36 @@ def evaluate_qa(qa, examples: pd.DataFrame) -> dict:
     """
     # TODO: iterate over examples, call predict_one, compute em + f1
     # TODO: build predictions list, aggregate em/f1, return
-    raise NotImplementedError("evaluate_qa not implemented")
+    predictions = []
+
+    em_scores = []
+    f1_scores = []
+
+    for row in examples.itertuples(index=False):
+        pred = predict_one(qa, row.question, row.context)
+
+        em = exact_match(pred, row.gold_answer)
+        f1 = token_f1(pred, row.gold_answer)
+
+        em_scores.append(em)
+        f1_scores.append(f1)
+
+        predictions.append({
+            "qid": row.qid,
+            "question": row.question,
+            "context_excerpt": row.context[:80],
+            "gold_answer": row.gold_answer,
+            "predicted_answer": pred,
+            "em": em,
+            "f1": f1,
+        })
+
+    return {
+        "em": sum(em_scores) / len(em_scores) if em_scores else 0.0,
+        "f1": sum(f1_scores) / len(f1_scores) if f1_scores else 0.0,
+        "n": len(examples),
+        "predictions": predictions,
+    }
 
 
 # -- Task 5: Orchestrate -----------------------------------------------------
