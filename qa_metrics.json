@@ -1,0 +1,6 @@
+{
+  "em": 0.342,
+  "f1": 0.4574333552314348,
+  "n": 1000,
+  "model": "distilbert-base-cased-distilled-squad"
+}
