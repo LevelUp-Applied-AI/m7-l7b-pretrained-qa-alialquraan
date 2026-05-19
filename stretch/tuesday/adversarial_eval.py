@@ -26,7 +26,15 @@ def load_adversarial_set(path: str = "stretch/tuesday/adversarial_set.csv") -> p
     # TODO: read the CSV at the given path
     # TODO: verify all five required columns exist; raise a clear error if any are missing
     # TODO: return the DataFrame
-    raise NotImplementedError("load_adversarial_set not implemented")
+    df = pd.read_csv(path)
+
+    required_cols = {"qid", "question", "context", "gold_answer", "pattern_tag"}
+    missing = required_cols - set(df.columns)
+
+    if missing:
+        raise ValueError(f"Missing columns: {missing}")
+
+    return df
 
 
 def evaluate_adversarial(qa, df: pd.DataFrame) -> dict:
@@ -44,13 +52,54 @@ def evaluate_adversarial(qa, df: pd.DataFrame) -> dict:
     # TODO: enrich each prediction with its pattern_tag (lookup from df by qid)
     # TODO: compute per-pattern aggregates (group by pattern_tag, mean em + f1, count)
     # TODO: return the combined dict
-    raise NotImplementedError("evaluate_adversarial not implemented")
+    base = lab.evaluate_qa(qa, df)
+    
+    predictions = base["predictions"]
+    
+    tag_map = dict(zip(df["qid"], df["pattern_tag"]))
+
+    enriched = []
+    for p in predictions:
+        qid = p.get("qid")
+        p["pattern_tag"] = tag_map.get(qid, "unknown")
+        enriched.append(p)
+
+    per_pattern = {}
+
+    for p in enriched:
+        tag = p["pattern_tag"]
+        if tag not in per_pattern:
+            per_pattern[tag] = {"em": [], "f1": [], "n": 0}
+
+        per_pattern[tag]["em"].append(p.get("em", 0))
+        per_pattern[tag]["f1"].append(p.get("f1", 0))
+        per_pattern[tag]["n"] += 1
+
+    per_pattern_final = {}
+    
+    for tag, vals in per_pattern.items():
+        per_pattern_final[tag] = {
+            "em": sum(vals["em"]) / len(vals["em"]) if vals["em"] else 0,
+            "f1": sum(vals["f1"]) / len(vals["f1"]) if vals["f1"] else 0,
+            "n": vals["n"]
+        }
+
+    return {
+        "em": base["em"],
+        "f1": base["f1"],
+        "n": base["n"],
+        "per_pattern": per_pattern_final,
+        "predictions": enriched
+    }
 
 
 def main() -> None:
     """Load adversarial set, run evaluation, write predictions + metrics."""
     df = load_adversarial_set()
+    
     qa = lab.build_qa_pipeline(lab.get_qa_model_name())
+    
+    
     result = evaluate_adversarial(qa, df)
 
     pred_df = pd.DataFrame(result["predictions"])

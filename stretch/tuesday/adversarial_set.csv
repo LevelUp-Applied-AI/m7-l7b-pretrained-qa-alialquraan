@@ -1,4 +1,33 @@
 qid,question,context,gold_answer,pattern_tag
-EX_01,REPLACE_WITH_YOUR_QUESTION,REPLACE_WITH_YOUR_CONTEXT_THAT_CONTAINS_THE_GOLD_ANSWER_AS_A_LITERAL_SUBSTRING,REPLACE_WITH_GOLD,your-pattern-tag
-EX_02,REPLACE_WITH_YOUR_QUESTION,REPLACE_WITH_YOUR_CONTEXT,REPLACE_WITH_GOLD,your-pattern-tag
-EX_03,REPLACE_WITH_A_CONTROL_QUESTION_THAT_THE_MODEL_SHOULD_GET_RIGHT,REPLACE_WITH_AN_EASY_VERSION_OF_THE_PATTERN,REPLACE_WITH_GOLD,control
+EX_01,Which company acquired Instagram?,Facebook acquired Instagram in 2012 while Twitter was expanding its platform.,Facebook,same_type_distractor
+EX_02,Which company created Windows?,Microsoft created Windows while Apple developed macOS.,Microsoft,same_type_distractor
+EX_03,Who directed Inception?,Inception was directed by Christopher Nolan while Steven Spielberg directed other famous films.,Christopher Nolan,same_type_distractor
+EX_04,Who painted the Mona Lisa?,The Mona Lisa was painted by Leonardo da Vinci while Michelangelo created the Sistine Chapel ceiling.,Leonardo da Vinci,same_type_distractor
+EX_05,Who founded Tesla?,Elon Musk is associated with Tesla while Jeff Bezos founded Amazon.,Elon Musk,same_type_distractor
+EX_06,Which city hosted the Olympics in 2021?,Tokyo hosted the Olympics in 2021 while Paris is preparing for future games.,Tokyo,same_type_distractor
+EX_07,Which company owns YouTube?,Google owns YouTube while Meta owns Facebook.,Google,same_type_distractor
+EX_08,Who starred in Titanic?,Leonardo DiCaprio starred in Titanic while Brad Pitt starred in other movies.,Leonardo DiCaprio,same_type_distractor
+EX_09,Who wrote Harry Potter?,J.K. Rowling wrote Harry Potter while Tolkien wrote Lord of the Rings.,J.K. Rowling,same_type_distractor
+EX_10,Who discovered gravity?,Isaac Newton discovered gravity while Galileo studied motion.,Isaac Newton,same_type_distractor
+
+EX_11,Who directed Inception?,Christopher Nolan directed Inception and the film was produced by Warner Bros.,Christopher Nolan,nearby_distractor
+EX_12,Who painted the Mona Lisa?,Leonardo da Vinci painted the Mona Lisa which is displayed in the Louvre Museum alongside works by other Renaissance artists.,Leonardo da Vinci,nearby_distractor
+EX_13,Which company created Windows?,Microsoft created Windows operating system which competes with macOS from Apple.,Microsoft,nearby_distractor
+EX_14,Who founded Tesla?,Elon Musk is CEO of Tesla which competes with companies like Apple in innovation discussions.,Elon Musk,nearby_distractor
+EX_15,Which city hosted the Olympics in 2021?,Tokyo hosted the Olympics in 2021 during the COVID-19 pandemic affecting global sports events.,Tokyo,nearby_distractor
+
+EX_16,Who directed Inception?,Christopher Nolan directed Inception.,Christopher Nolan,control_easy
+EX_17,Who painted the Mona Lisa?,Leonardo da Vinci painted the Mona Lisa.,Leonardo da Vinci,control_easy
+EX_18,Which company created Windows?,Microsoft created Windows.,Microsoft,control_easy
+EX_19,Who founded Tesla?,Elon Musk founded Tesla.,Elon Musk,control_easy
+EX_20,Which city hosted the Olympics in 2021?,Tokyo hosted the 2021 Olympics.,Tokyo,control_easy
+EX_21,Which company owns YouTube?,Google owns YouTube.,Google,control_easy
+EX_22,Who starred in Titanic?,Leonardo DiCaprio starred in Titanic.,Leonardo DiCaprio,control_easy
+EX_23,Who wrote Harry Potter?,J.K. Rowling wrote Harry Potter.,J.K. Rowling,control_easy
+EX_24,Who discovered gravity?,Isaac Newton discovered gravity.,Isaac Newton,control_easy
+EX_25,Which company acquired Instagram?,Facebook acquired Instagram.,Facebook,control_easy
+EX_26,Which company created macOS?,Apple created macOS.,Apple,control_easy
+EX_27,Who directed Titanic?,James Cameron directed Titanic.,James Cameron,control_easy
+EX_28,Which city is capital of France?,Paris is the capital of France.,Paris,control_easy
+EX_29,Who painted Starry Night?,Vincent van Gogh painted Starry Night.,Vincent van Gogh,control_easy
+EX_30,Which company developed iPhone?,Apple developed the iPhone.,Apple,control_easy
