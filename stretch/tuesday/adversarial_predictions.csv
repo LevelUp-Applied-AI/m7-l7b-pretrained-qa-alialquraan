@@ -1,0 +1,31 @@
+qid,question,context_excerpt,gold_answer,predicted_answer,em,f1,pattern_tag
+EX_01,Which company acquired Instagram?,Facebook acquired Instagram in 2012 while Twitter was expanding its platform.,Facebook,Facebook,1,1.0,same_type_distractor
+EX_02,Which company created Windows?,Microsoft created Windows while Apple developed macOS.,Microsoft,Apple,0,0.0,same_type_distractor
+EX_03,Who directed Inception?,Inception was directed by Christopher Nolan while Steven Spielberg directed othe,Christopher Nolan,Christopher Nolan,1,1.0,same_type_distractor
+EX_04,Who painted the Mona Lisa?,The Mona Lisa was painted by Leonardo da Vinci while Michelangelo created the Si,Leonardo da Vinci,Leonardo da Vinci,1,1.0,same_type_distractor
+EX_05,Who founded Tesla?,Elon Musk is associated with Tesla while Jeff Bezos founded Amazon.,Elon Musk,Jeff Bezos,0,0.0,same_type_distractor
+EX_06,Which city hosted the Olympics in 2021?,Tokyo hosted the Olympics in 2021 while Paris is preparing for future games.,Tokyo,Tokyo,1,1.0,same_type_distractor
+EX_07,Which company owns YouTube?,Google owns YouTube while Meta owns Facebook.,Google,Google,1,1.0,same_type_distractor
+EX_08,Who starred in Titanic?,Leonardo DiCaprio starred in Titanic while Brad Pitt starred in other movies.,Leonardo DiCaprio,Leonardo DiCaprio,1,1.0,same_type_distractor
+EX_09,Who wrote Harry Potter?,J.K. Rowling wrote Harry Potter while Tolkien wrote Lord of the Rings.,J.K. Rowling,J.K. Rowling,1,1.0,same_type_distractor
+EX_10,Who discovered gravity?,Isaac Newton discovered gravity while Galileo studied motion.,Isaac Newton,Isaac Newton,1,1.0,same_type_distractor
+EX_11,Who directed Inception?,Christopher Nolan directed Inception and the film was produced by Warner Bros.,Christopher Nolan,Christopher Nolan,1,1.0,nearby_distractor
+EX_12,Who painted the Mona Lisa?,Leonardo da Vinci painted the Mona Lisa which is displayed in the Louvre Museum ,Leonardo da Vinci,Leonardo da Vinci,1,1.0,nearby_distractor
+EX_13,Which company created Windows?,Microsoft created Windows operating system which competes with macOS from Apple.,Microsoft,Microsoft,1,1.0,nearby_distractor
+EX_14,Who founded Tesla?,Elon Musk is CEO of Tesla which competes with companies like Apple in innovation,Elon Musk,Elon Musk,1,1.0,nearby_distractor
+EX_15,Which city hosted the Olympics in 2021?,Tokyo hosted the Olympics in 2021 during the COVID-19 pandemic affecting global ,Tokyo,Tokyo,1,1.0,nearby_distractor
+EX_16,Who directed Inception?,Christopher Nolan directed Inception.,Christopher Nolan,Christopher Nolan,1,1.0,control_easy
+EX_17,Who painted the Mona Lisa?,Leonardo da Vinci painted the Mona Lisa.,Leonardo da Vinci,Leonardo da Vinci,1,1.0,control_easy
+EX_18,Which company created Windows?,Microsoft created Windows.,Microsoft,Microsoft,1,1.0,control_easy
+EX_19,Who founded Tesla?,Elon Musk founded Tesla.,Elon Musk,Elon Musk,1,1.0,control_easy
+EX_20,Which city hosted the Olympics in 2021?,Tokyo hosted the 2021 Olympics.,Tokyo,Tokyo,1,1.0,control_easy
+EX_21,Which company owns YouTube?,Google owns YouTube.,Google,Google,1,1.0,control_easy
+EX_22,Who starred in Titanic?,Leonardo DiCaprio starred in Titanic.,Leonardo DiCaprio,Leonardo DiCaprio,1,1.0,control_easy
+EX_23,Who wrote Harry Potter?,J.K. Rowling wrote Harry Potter.,J.K. Rowling,J.K. Rowling,1,1.0,control_easy
+EX_24,Who discovered gravity?,Isaac Newton discovered gravity.,Isaac Newton,Isaac Newton,1,1.0,control_easy
+EX_25,Which company acquired Instagram?,Facebook acquired Instagram.,Facebook,Facebook,1,1.0,control_easy
+EX_26,Which company created macOS?,Apple created macOS.,Apple,Apple,1,1.0,control_easy
+EX_27,Who directed Titanic?,James Cameron directed Titanic.,James Cameron,James Cameron,1,1.0,control_easy
+EX_28,Which city is capital of France?,Paris is the capital of France.,Paris,Paris,1,1.0,control_easy
+EX_29,Who painted Starry Night?,Vincent van Gogh painted Starry Night.,Vincent van Gogh,Vincent van Gogh,1,1.0,control_easy
+EX_30,Which company developed iPhone?,Apple developed the iPhone.,Apple,Apple,1,1.0,control_easy
